@@ -27,6 +27,22 @@
     router.replace({path: 'home'});//两者等价
 ```
 5. this.router 和 this.route 的区别，前者是路由器负责执行，后者是路由表负责提供蓝图
+6. 嵌套路由使用别名时，如别名为带‘/’的字符串，则真正的别名不用带上父级路由。
+```js
+    const routes = [
+        {
+            path: '/home',
+            children: [
+                {
+                    path: '/son',
+                    component: myComponent,
+                    alias: ['/son1', 'son2']
+                }
+                //  /home/son    /home/son2     /son1   三者都指向myComponent组件
+            ]
+        }
+    ]
+```
 ---
 
 
