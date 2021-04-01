@@ -1,10 +1,8 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
@@ -15,12 +13,11 @@ export default {
     }
   },
   components: {
-    HelloWorld
   },
   mounted() {
-    console.log(this.$router);
-    console.log('vue',this);
-    console.log('data',this._data.value);
+    console.log('app');
+    // console.log('vue',this);
+    // console.log('data',this._data.value);
   }
 }
 </script>

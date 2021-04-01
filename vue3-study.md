@@ -67,7 +67,9 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
         }
     ]
 ```
-7. 待定
+7. 组件内的守卫，beforeRouteEnter()中不能访问this，beforeRouteUpdate()和beforeRouteLeave()中能访问this
+8. 路由钩子的执行过程：   
+   <img src="./路由过程.png">
 ---
 
 
