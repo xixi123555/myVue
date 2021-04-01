@@ -1,6 +1,30 @@
 # VUE3.0.0 #
 1. 文档地址： [vue3官方文档](https://v3.cn.vuejs.org/guide/introduction.html)
-2.  
+2. data,methods等属性的代理:  
+this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实现  
+```js
+    function initData (vm) {
+        var data = vm.$options.data;
+        vm._data = data;//在实例上创建一个_data的私有属性
+        // ...methods,props等
+        var key = Object.keys(data);
+        var i = key.length;
+        while(i--) {
+            proxy(vm,"_data",key)//将vm._data代理到vm上
+        }
+        const commomObject = {
+            enumerable: true,
+            configurable: true,
+            get: noop,
+            set: noop
+        }
+        function proxy (target,suorceKey,key) {
+            commomObject.get = () => return target[suorceKey][key];
+            commomObject.set = (val) => {target[suorceKey][key] = val};
+            Object.defineProperty(target,key,commomObject);//将在vm上添加key属性，值为commomObject
+        }
+    }
+```
 ---
 
 
