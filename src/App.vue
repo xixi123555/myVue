@@ -1,8 +1,12 @@
 <template>
+<div>
   <router-view></router-view>
+  <My/>
+</div>
 </template>
 
 <script>
+import My from './components/my'
 
 export default {
   name: 'App',
@@ -13,6 +17,7 @@ export default {
     }
   },
   components: {
+    My
   },
   mounted() {
     console.log('app');

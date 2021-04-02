@@ -1,7 +1,7 @@
-# VUE3.0.0 #
+# vue3.0.0 #
 1. 文档地址： [vue3官方文档](https://v3.cn.vuejs.org/guide/introduction.html)
 2. data,methods等属性的代理:  
-this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实现  
+this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实现 **`(伪源码) `** 
 ```js
     function initData (vm) {
         var data = vm.$options.data;
@@ -15,16 +15,18 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
         const commomObject = {
             enumerable: true,
             configurable: true,
-            get: noop,
+            get: noop,//vue源码中 const NOOP = () => { };空函数
             set: noop
         }
         function proxy (target,suorceKey,key) {
-            commomObject.get = () => return target[suorceKey][key];
-            commomObject.set = (val) => {target[suorceKey][key] = val};
-            Object.defineProperty(target,key,commomObject);//将在vm上添加key属性，值为commomObject
+            commomObject.get = function proxyGetter() {return this[suorceKey][key];}
+            commomObject.set = function proxySetter(val) {return this[suorceKey][key] = val};
+            Object.defineProperty(target,key,commomObject);//将在vm上添加key属性，值为commomObject的值，并添加get，set方法
         }
     }
 ```
+3. createApp()方法的来龙去脉
+4. setup()方法的前世今生
 ---
 
 

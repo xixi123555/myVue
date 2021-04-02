@@ -15,5 +15,7 @@ router.beforeResolve((to,from,next) => {
 router.afterEach((to,from) => {
     console.log('afterEach');
 })
+console.log(App);
+
 
 createApp(App).use(router).mount('#app')

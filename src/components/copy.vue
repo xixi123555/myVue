@@ -4,10 +4,26 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Copy',
   props: {
   },
+  data() {
+    return {
+      aa:'ssss',
+      aa1:'ssss',
+      aa2:'ssss',
+      aa3:'ssss',
+      aa4:'ssss',
+      aa5:'ssss',
+      aa6:'ssss',
+      aa7:'ssss',
+      aa8:'ssss',
+      aa9:'ssss',
+      aa0:'ssss',
+    }
+  },
   mounted() {
+    console.log('this',this);
     console.log('copy');
   },
   beforeRouteEnter (to, from, next){
