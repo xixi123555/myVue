@@ -1,14 +1,16 @@
 <template>
-  <p>My</p>
+  <div>
+    <p>My</p>
+    <span>xxxxxx</span>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'My',
-  props: {
-  },
-  
-}
+  name: "My",
+  props: {},
+  methods: {},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

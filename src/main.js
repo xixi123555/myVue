@@ -1,6 +1,8 @@
-import { createApp } from 'vue'
+import { createApp } from '../node_modules/vue'
 import App from './App.vue'
 import router from './router'
+
+console.log(process.env.NODE_ENV);
 
 router.beforeEach((to,from,next) =>{
     console.log('beforEach');
