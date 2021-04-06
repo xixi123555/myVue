@@ -1,36 +1,38 @@
 <template>
-<div>
-  <router-view></router-view>
-  <My/>
-  <button @click="clickEvent">go hellow</button>
-</div>
+  <div>
+    <router-view></router-view>
+    <My />
+    <button @click="click">helloWorld</button>
+  </div>
 </template>
 
 <script>
-import My from './components/my'
+import My from "./components/my";
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-//将vm.$options.data存储在变量data中，同时vm新建私有属性_data映射该对象，这样就可以通过vm._data访问到data数据
-      value: '11111'
-    }
+      //将vm.$options.data存储在变量data中，同时vm新建私有属性_data映射该对象，这样就可以通过vm._data访问到data数据
+      value: "11111",
+    };
   },
   components: {
-    My
+    My,
   },
   mounted() {
-    console.log('app');
-    console.log('vue',this);
+    console.log("app");
+    console.log("vue", this);
     // console.log('data',this._data.value);
   },
   methods: {
-    clickEvent(){
-      this.$router.push('/helloWorld')
-    }
-  }
-}
+    click() {
+      console.log("app", My);
+      // console.log('vue',this);
+      // console.log('data',this._data.value);
+    },
+  },
+};
 </script>
 
 <style>
