@@ -25,7 +25,69 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
         }
     }
 ```
-3. createApp()方法的来龙去脉
+3. createApp()方法的来龙去脉:  
+   这里涉及到编译到生成虚拟DOM的过程，打包时，调用vue-template-compiler(编译器)将template,script,style部分的代码解析。【主要是调用compiler.parseComponent(file, [options])方法将整个.vue文件解析为描述性对象，进而调用vue-loader,将此描述性对象组装为ES模块，并导出为vue组件对象】这个过程  .vue文件 --> js文件，这个过程也生成了render函数。故打印的component除data,metheds等之外还添加了一个render函数。
+   ```js
+        //.vue
+        <template>
+            <div>hellow</div>
+        </template>
+        <script>
+            export.default {
+                name: HELLOW,
+                data(){return{}}
+            }
+        </script>
+        <style></style>
+   ```
+   <center>||</center>
+   <center>compiler.parseComponent(file, [options])</center>
+   <center>||</center>
+
+   ```js
+        template: {
+            type: 'template',
+            content: '\n<div>hellow</div>\n',
+            start: 10,//除template标签以外的开始位置
+            attrs: {},//</template>结束位置
+            end: 37
+        },
+        script: {
+            type: 'script',
+            content: '\n' +
+            'export default {\n' +
+            '  name: HELLOW\n'
+            '  data () {}\n' +
+            '  }\n' +
+            '}\n',
+            start: 77,
+            attrs: {},
+            end: 174
+        },
+        styles: [
+                    {
+                    type: 'style',
+                    content: '',
+                    start: 194,
+                    attrs: {},
+                    end: 236
+                    }
+                ],
+   ```
+
+   <center>||</center>
+   <center>vue-loader</center>
+   <center>||</center>
+
+    
+   ```js
+        {
+            name: HELLOW,
+            data(){return {}},
+            render(){...}
+        }
+   ```
+
 4. setup()方法的前世今生
 5. ref()和reactive()方法
 ---
