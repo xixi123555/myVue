@@ -38,6 +38,8 @@ export default {
   },
   mounted() {
     console.log('hellow');
+    console.log('vue',this);
+
   }
 }
 </script>

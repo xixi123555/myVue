@@ -27,6 +27,7 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
 ```
 3. createApp()方法的来龙去脉
 4. setup()方法的前世今生
+5. ref()和reactive()方法
 ---
 
 

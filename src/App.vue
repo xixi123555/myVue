@@ -2,6 +2,7 @@
 <div>
   <router-view></router-view>
   <My/>
+  <button @click="clickEvent">go hellow</button>
 </div>
 </template>
 
@@ -21,8 +22,13 @@ export default {
   },
   mounted() {
     console.log('app');
-    // console.log('vue',this);
+    console.log('vue',this);
     // console.log('data',this._data.value);
+  },
+  methods: {
+    clickEvent(){
+      this.$router.push('/helloWorld')
+    }
   }
 }
 </script>
