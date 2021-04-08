@@ -19,5 +19,8 @@ router.afterEach((to,from) => {
 })
 console.log('main.js');
 
+let you = createApp(App);
+console.log('you',you);
 
+console.log(App);
 createApp(App).use(router).mount('#app')
