@@ -1,8 +1,10 @@
 # vue3.0.0 #
 1. 文档地址： [vue3官方文档](https://v3.cn.vuejs.org/guide/introduction.html)
 2. data,methods等属性的代理:  
-this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实现 **`(伪源码) `** 
+   vue2.x的this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实现 **`(伪源码) `** 
+   vue3.0的代理用的是es6中的Proxy   new Proxy(vm, handler)
 ```js
+    //vue2.x的原理
     function initData (vm) {
         var data = vm.$options.data;
         vm._data = data;//在实例上创建一个_data的私有属性
@@ -25,7 +27,7 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
         }
     }
 ```
-3. vue的编译过程:  
+3. **vue的编译过程`（用webpack等打包工具）:（不用打包工具时，vue自己本身也有编译的能力，根据render函数是否存在）`** 
    打包时，调用vue-template-compiler(编译器)将template,script,style部分的代码解析。【主要是调用compiler.parseComponent(file, [options])方法将整个.vue文件解析为描述性对象，进而调用vue-loader,将此描述性对象组装为ES模块，并导出为vue组件对象】这个过程  .vue文件 --> js文件，这个过程也生成了render函数。故打印的component除data,metheds等之外还添加了一个render函数。
    ```js
         //.vue
@@ -87,20 +89,20 @@ this.$options.data.someKey 和 this.someKey等价关系通过下面函数来实�
             render(){...}
         }
    ```
-   render函数是由compiler.compile(template, [options])方法生成,生成之后由vue-loader加入返回的ESModule中。自此编译过程结束，也将浏览器或者node不认识的vue文件翻译成了js代码。
+   render函数是由compiler.compile(template, [options])方法生成,生成之后由vue-loader加入返回的ESModule中。自此编译过程结束，也将浏览器或者node不认识的vue文件翻译成了js代码。而后实例化时执行render函数生成虚拟dom，执行vue的Patch方法将虚拟dom变成真实dom
    ```js
-        //该方法返回值
+        //compiler.compile方法返回值
         {
             ast: ASTElement, // 解析模板生成的ast，也就是抽象语法树
             render: string,	 // 渲染函数
-            staticRenderFns: Array<string>, // 静态子树
+            staticRenderFns: Array<string>, // 静态子树（diff算法更高效）
             errors: Array<string>,
             tips: Array<string>
         }
    ```
 
 4. setup()方法的前世今生:  
-   每一个组件都是一个Vue构造函数的子类,
+   每一个组件都是一个Vue构造函数的子类,实例化的过程中，setup执行在beforCreated之后，created之前，该方法不能访问this，
 5. ref()和reactive()方法
 ---
 
