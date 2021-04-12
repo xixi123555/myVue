@@ -102,8 +102,9 @@
    ```
 
 4. setup()方法的前世今生:  
-   每一个组件都是一个Vue构造函数的子类,实例化的过程中，setup执行在beforCreated之后，created之前，该方法不能访问this，
-5. ref()和reactive()方法
+   每一个组件都是一个Vue构造函数的子类,实例化的过程中，setup执行在beforCreated之后，created之前，该方法不能访问this **`(undefined)`**，setup方法只能是同步的，不能异步。setup方法是Composition API的入口，和之前的option API有一定的差异。这样也是为了让代码可以分割开，也不用考虑this指向的问题。除props外，其他的option都可以聚合到该方法内部。
+5. ref()和reactive()方法  
+   两者都是为把数据变成响应式的，前置用于值类型，后者用于应用类型。在使用ref包装后，要赋值或取值要使用 **`.value`**
 ---
 
 
@@ -148,7 +149,22 @@
 ```
 7. 组件内的守卫，beforeRouteEnter()中不能访问this，beforeRouteUpdate()和beforeRouteLeave()中能访问this
 8. 路由钩子的执行过程：   
-   <img src="./路由过程.png">
+   <img src="./路由过程.png">  
+9. setup中的router和route： 
+    由于不能访问this，故要采用以下方式,并且不用返回router和route **`（在模板中可以反问$routehe 和 $router）`**
+    ```js
+        import { useRouter ,useRoute} from 'vue-router';
+
+        export default {
+            setup(props,contex) {
+                const router = useRouter();//等价于this.$router
+                const route = useroute();//相当于this.$route
+                router.push({path: '/home',query: {aaa:'xxx'}})
+                //...
+            }
+        }
+    ```
+10. 
 ---
 
 
