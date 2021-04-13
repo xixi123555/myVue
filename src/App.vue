@@ -3,11 +3,13 @@
     <router-view></router-view>
     <My />
     <button @click="click">helloWorld</button>
+    <AppLink />
   </div>
 </template>
 
 <script>
 import My from "./components/my";
+import AppLink from "./components/AppLink"
 
 export default {
   name: "App",
@@ -18,16 +20,19 @@ export default {
     };
   },
   components: {
-    My,
+    My,AppLink
   },
   mounted() {
+    this.$router.addRoute({path:'/helloWorld',component: () => import('./components/my')})
     console.log("app");
     console.log("vue", this);
+    console.log('getRoutes:',this.$router.getRoutes());
     // console.log('data',this._data.value);
   },
   methods: {
     click() {
       console.log("app", My);
+      this.$router.replace(this.$router.currentRoute.value.fullPath)
       // console.log('vue',this);
       // console.log('data',this._data.value);
     },

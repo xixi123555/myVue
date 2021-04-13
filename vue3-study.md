@@ -116,7 +116,10 @@
     const routes = [];
     const router = createRouter({
         history: createWebHashHistory(),
-        routes
+        routes,
+        scrollBehavior(to,from,savePostion) {//仅在触发浏览器的前进后退事件时执行
+            //...
+        }
     });
 ```
 3. router.push()方法，中参数提供了path时params会被忽略
@@ -151,7 +154,7 @@
 8. 路由钩子的执行过程：   
    <img src="./路由过程.png">  
 9. setup中的router和route： 
-    由于不能访问this，故要采用以下方式,并且不用返回router和route **`（在模板中可以反问$routehe 和 $router）`**
+    由于不能访问this，故要采用以下方式,并且不用返回router和route **`（在模板中可以访问$routehe 和 $router）`**
     ```js
         import { useRouter ,useRoute} from 'vue-router';
 
@@ -164,7 +167,7 @@
             }
         }
     ```
-10. 
+10. 路由的重定向不是中断一次导航守卫，而是创建一个新的导航
 ---
 
 
