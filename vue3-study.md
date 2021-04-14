@@ -104,7 +104,22 @@
 4. setup()方法的前世今生:  
    每一个组件都是一个Vue构造函数的子类,实例化的过程中，setup执行在beforCreated之后，created之前，该方法不能访问this **`(undefined)`**，setup方法只能是同步的，不能异步。setup方法是Composition API的入口，和之前的option API有一定的差异。这样也是为了让代码可以分割开，也不用考虑this指向的问题。除props外，其他的option都可以聚合到该方法内部。
 5. ref()和reactive()方法  
-   两者都是为把数据变成响应式的，前置用于值类型，后者用于应用类型。在使用ref包装后，要赋值或取值要使用 **`.value`**
+   两者都是为把数据变成响应式的，前置用于值类型，后者用于应用类型。在使用ref包装后，要赋值或取值要使用 **`.value`**  
+6. 异步组件
+   ```js
+        import { defineAsyncComponent } from 'vue'
+        const someAsyncComponent = defineAsyncComponent(() => import('./path/component'))
+        //在router中用的话，还是用component: () => import('./path/component'),router中返回组件的时候调用过defineAsyncComponent方法了，所以不需要再用。
+        /* 
+            //如果在vue-router中用了defineAsyncComponent方法vue-router的报错如下
+            warn(`Component "${name}" in record with path "${record.path}" is defined ` +
+                `using "defineAsyncComponent()". ` +
+                `Write "() => import('./MyPage.vue')" instead of ` +
+                `"defineAsyncComponent(() => import('./MyPage.vue'))".`
+                );
+        */
+        
+   ```
 ---
 
 

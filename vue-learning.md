@@ -11,7 +11,7 @@
             },
             $emit(eventName,args) {
                 if(this.eventHandles[eventName]) {
-                    this.eventHandles[eventName](args)
+                    this.eventHandles[eventName](args)//只支持单个事件方法
                 }
             }
         }
