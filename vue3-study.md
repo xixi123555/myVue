@@ -104,7 +104,7 @@
 4. setup()方法的前世今生:  
    每一个组件都是一个Vue构造函数的子类,实例化的过程中，setup执行在beforCreated之后，created之前，该方法不能访问this **`(undefined)`**，setup方法只能是同步的，不能异步。setup方法是Composition API的入口，和之前的option API有一定的差异。这样也是为了让代码可以分割开，也不用考虑this指向的问题。除props外，其他的option都可以聚合到该方法内部。
 5. ref()和reactive()方法  
-   两者都是为把数据变成响应式的，前置用于值类型，后者用于应用类型。在使用ref包装后，要赋值或取值要使用 **`.value`**  
+   两者都是为把数据变成响应式的，前者用于值类型，后者用于引用类型。在使用ref包装后，要赋值或取值要使用 **`.value`**  
 6. 异步组件
    ```js
         import { defineAsyncComponent } from 'vue'
@@ -186,4 +186,61 @@
 ---
 
 
-# vuex 4.x #
+# vuex 4.x #  
+1. 当计算属性的名字和状态管理中的名称一样时
+   ```js
+        import { mapState } from 'vuex'
+        //...
+        //自动生成与仓库关联的计算属性(或者是使用展开运算符 computed：{...mapState(....)})
+        computed: mapState(['someState1','someState2',...])
+        //需要处理时
+        /*
+        computed：mapState({
+            someCompute(state) {
+                return state.someState + '.com'
+            }
+        })
+        */
+   ```
+2. 状态管理的getter相当于state部分的计算属性，是vue实例和状态管理之间通路，官方推荐使用getter访问仓库中的数据，而非this.$store.state.someKey。（官方的推荐也确实合乎常理，如果要去保险箱中拿钱，应该打开密码锁了拿出来，而非绕过保险箱直接拿）  
+3. 对于要取多个信息，还是使用工具函数mapGetters（），用法同mapState（），帅且高冷。
+4. mutation的响应式原则： 1.初始化state的数据，2.引用类型添加型属性是最好是有一个新引用类型替换掉久引用类型
+5. mapMutation()的引用  
+   ```js
+        //mutation 中所有的数据都是同步数据
+        //...
+        methods: {
+            setUsername(){...},
+            ...mapMutation({
+                setUsername: 'setUsername'//就是将setUsername转变成this.$store.commit('setUsername')
+            })
+        }
+   ```
+6. actions是异步方式的mutation，内部也是调用了mutation的方法
+   ```js
+        actions: {
+            someAction({ commit }) {
+                return http.someQuest({}).then(res => {
+                    commit('somemutation'，res)
+                })
+            }
+        }
+   ```
+
+
+# axios #
+1. axios 提供了高并发的方法，也可以用promise.all()
+   ```js
+        request1() {...};
+        request2() {...};
+        request3() {...};
+        axios.all([request1(),request2(),request3()]).then(axios.spread((res1,res2,res3) =>{
+            let response1 = res1;//res1是request1的response
+            let response2 = res2;//res2是request2的response
+            let response3 = res3;//res3是request3的response
+        }))
+        //promise的方式【 promise.race() 和 promise.all() 用法一样，但是race，哪个先返回就resolve了 】
+        Promise.all([[request1(),request2(),request3()]).then(result = {
+            let result = result;//result=[res1,res2,res3]的数组
+        })
+   ```

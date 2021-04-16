@@ -23,7 +23,7 @@
    ***`父子组件的通讯:`*** 1. props传递属性，emit（）抛出事件； 2.父子组件中各自访问$parents,$children  3.父组件中直接使用ref来访问组件或者元素  
    ***`爷孙组件的通讯：`*** 需要借助中间组件即父组件，在父组件中v-bind=“\$attrs”,子组件中访问\$attrs即可；在父组件中v-on=“$listeners”,子组件中emit(),爷爷组件中实现该事件即可  
    ***`同族组件的通讯：`*** provide/inject,祖组件中 provide( ){ return{...} } ,后代组件中 inject:{ } **`(和props的写法类似)`**  
-3. 插槽，重点作用于插槽
+3. 插槽，重点作用域插槽
    ```js
         //component1
         <slot :someAttr="someValue"></slot>

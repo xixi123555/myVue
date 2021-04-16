@@ -10,7 +10,7 @@ const routes = [
         component: () => import("../components/HelloWorld")
     },
     {
-        path: '/',
+        path: '/copy/:id',
         component: () => import("../components/copy"),
         beforeEnter:(to, from, next) => {
             console.log('beforeEnter');

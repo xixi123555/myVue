@@ -23,8 +23,7 @@ export default {
     My,AppLink
   },
   mounted() {
-    this.$router.addRoute({path:'/helloWorld',component: () => import('./components/my')})
-    console.log("app");
+    console.log("My：",My);
     console.log("vue", this);
     console.log('getRoutes:',this.$router.getRoutes());
     // console.log('data',this._data.value);
@@ -32,7 +31,7 @@ export default {
   methods: {
     click() {
       console.log("app", My);
-      this.$router.replace(this.$router.currentRoute.value.fullPath)
+      this.$router.push('/helloWorld')
       // console.log('vue',this);
       // console.log('data',this._data.value);
     },
