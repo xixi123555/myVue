@@ -16,7 +16,8 @@ const routes = [
             console.log('beforeEnter');
             next()
         }
-    }
+    },
+   
 ];
 const router = createRouter({
     history: createWebHashHistory(),

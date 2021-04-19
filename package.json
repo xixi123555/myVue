@@ -10,6 +10,9 @@
   "dependencies": {
     "chokidar": "^3.5.1",
     "core-js": "^3.6.5",
+    "element-plus": "^1.0.2-beta.40",
+    "stylus": "^0.52.4",
+    "stylus-loader": "^3.0.2",
     "vue": "^3.0.0",
     "vue-loader": "^16.1.0",
     "vue-router": "^4.0.5",

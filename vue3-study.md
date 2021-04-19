@@ -131,7 +131,7 @@
             </div>
         </template>
         <script>
-            export default = {
+            export default {
                 //...
                 methods: {
                      click() { this.$router.push('/helloWorld') },
