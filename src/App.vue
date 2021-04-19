@@ -2,7 +2,7 @@
   <div>
     <router-view></router-view>
     <My />
-    <button @click="click">helloWorld</button>
+    <button @click="click" class="xxxxx" style="color: red">helloWorld</button>
     <AppLink />
   </div>
 </template>
@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style>
+.xxxxx {
+  background-color: bisque;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

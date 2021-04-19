@@ -120,6 +120,45 @@
         */
         
    ```
+7. render函数：自定义的render函数优先级最高，render（标签名:string ， 属性:Object ， 内容:Array）
+   ```js
+        <template>
+            <div>
+                <router-view></router-view>
+                <My />
+                <button @click="click" class="xxxxx" style="color: red">helloWorld</button>
+                <AppLink />
+            </div>
+        </template>
+        <script>
+            export default = {
+                //...
+                methods: {
+                     click() { this.$router.push('/helloWorld') },
+                }
+            }
+        </script>
+        
+        //由vue-template-complier编译后生成的render函数
+        function render(_ctx, _cache) {
+            var _component_router_view = Object(vue__WEBPACK_IMPORTED_MODULE_0__["resolveComponent"])("router-view");
+            var _component_My = Object(vue__WEBPACK_IMPORTED_MODULE_0__["resolveComponent"])("My");
+            var _component_AppLink = Object(vue__WEBPACK_IMPORTED_MODULE_0__["resolveComponent"])("AppLink");
+
+            return Object(vue__WEBPACK_IMPORTED_MODULE_0__["openBlock"])(), Object(vue__WEBPACK_IMPORTED_MODULE_0__["createBlock"])("div", null, [
+            Object(vue__WEBPACK_IMPORTED_MODULE_0__["createVNode"])(_component_router_view),
+            Object(vue__WEBPACK_IMPORTED_MODULE_0__["createVNode"])(_component_My),
+            Object(vue__WEBPACK_IMPORTED_MODULE_0__["createVNode"])("button", {
+                onClick: _cache[1] || (_cache[1] = function () {return _ctx.click && _ctx.click.apply(_ctx, arguments);}),
+                class: "xxxxx",
+                style: { "color": "red" } },
+            "helloWorld"),
+            Object(vue__WEBPACK_IMPORTED_MODULE_0__["createVNode"])(_component_AppLink)]);
+
+        }
+
+
+   ```
 ---
 
 
@@ -169,7 +208,7 @@
 8. 路由钩子的执行过程：   
    <img src="./路由过程.png">  
 9. setup中的router和route： 
-    由于不能访问this，故要采用以下方式,并且不用返回router和route **`（在模板中可以访问$routehe 和 $router）`**
+    由于不能访问this，故要采用以下方式,并且不用返回router和route **`（在模板中可以访问$route 和 $router）`**
     ```js
         import { useRouter ,useRoute} from 'vue-router';
 
@@ -213,7 +252,15 @@
             setUsername(){...},
             ...mapMutation({
                 setUsername: 'setUsername'//就是将setUsername转变成this.$store.commit('setUsername')
-            })
+            }),
+            //用例
+            someEvent() {
+                this.$http.getSomeInfo({}).then(res =>{
+                    this.setUsername(res.body.data)
+                }).catch{
+                    new error()
+                }
+            }
         }
    ```
 6. actions是异步方式的mutation，内部也是调用了mutation的方法
@@ -221,8 +268,10 @@
         actions: {
             someAction({ commit }) {
                 return http.someQuest({}).then(res => {
-                    commit('somemutation'，res)
+                    commit('somemutation'，res);
                 })
+            }.catch{
+                new error();
             }
         }
    ```
