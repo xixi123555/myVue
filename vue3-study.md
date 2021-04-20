@@ -138,7 +138,7 @@
                 }
             }
         </script>
-        
+
         //由vue-template-complier编译后生成的render函数
         function render(_ctx, _cache) {
             var _component_router_view = Object(vue__WEBPACK_IMPORTED_MODULE_0__["resolveComponent"])("router-view");
@@ -156,8 +156,27 @@
             Object(vue__WEBPACK_IMPORTED_MODULE_0__["createVNode"])(_component_AppLink)]);
 
         }
-
-
+   ```
+8. vue3 中在自定义组件中能使用v-model (双向绑定，父子组件通信的应用)
+   ```js
+        //===================================伪代码=====================================
+        <someComponent v-model="value" /> 
+        //等价于
+        <someComponent :modelValue="value" @update:modelValue="value = $event" />   
+        //===================================伪代码=====================================
+        //.vue
+        <templat>
+            <input
+                @input="(e) => {this.$emit('update:modelValue',e.target.value)}"//向上传递（双向绑定第二步
+                :value="modelValue"
+            />
+        </templat>
+        <script>
+        export default {
+            name: 'SomeComponent',
+            props:['modelValue']//向下传递（双向绑定第一步）
+        }
+        </script>
    ```
 ---
 

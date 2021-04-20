@@ -3,6 +3,7 @@
         <label :class="floatLabel" :style="labelPositionWidth">{{label}}</label>
         <input
             :class="['my-input',input_cpmputed_class]"
+            :value="modelValue"
             @input="emitInput"
             v-bind="$attrs"
             @focus="focusEvent"
@@ -19,6 +20,10 @@ import { computed, onMounted, ref} from 'vue';
 export default {
     name: "IIInput",
     props: {
+        modelValue: {
+            type: String,
+            default: ''
+        },
         //label出现的位置，默认值是left
         labelPosition: {
             type: String,
@@ -37,14 +42,11 @@ export default {
             default: false
         }
     },
-
     setup(props,context) {
         
         const label = ref('')
-        console.log('context:',label);
         const isFocus = ref(false) ;
         const inputDOM = ref(null);
-
         //mounted
         onMounted(() => {
             label.value = context.attrs.placeholder + ":";
@@ -91,8 +93,8 @@ export default {
             }
         };
         const emitInput = (e) => {
-            console.log('eeee:',e);
-            context.emit("input", e.target.value);
+            context.emit('update:modelValue',e.target.value)
+            // context.emit("input", e.target.value);
         };
         return {
             label,

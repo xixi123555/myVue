@@ -14,7 +14,7 @@
           <IIInput placeholder="密码"  v-model="value"></IIInput>
         </div>
         <div class="ccc">
-          <IIInput placeholder="验证码"  v-model="value"></IIInput>
+          <IIInput placeholder="验证码"  v-model="value2"></IIInput>
         </div>
       </div>
     </div>
@@ -22,13 +22,13 @@
       <span style="width:400px;height:50px;display: inline-block">{{value}}</span>
       <div style="display:inline-block;width:400px">
         <div class="ccc">
-          <IIInput labelPosition="top" placeholder="登录名"  v-model="value"></IIInput>
+          <IIInput labelPosition="top" placeholder="登录名"  v-model="value5"></IIInput>
         </div>
         <div class="ccc">
-          <IIInput labelPosition="top" placeholder="密码"  v-model="value"></IIInput>
+          <IIInput labelPosition="top" placeholder="密码"  v-model="value3"></IIInput>
         </div>
         <div class="ccc">
-          <IIInput labelPosition="top" placeholder="验证码"  v-model="value"></IIInput>
+          <IIInput labelPosition="top" placeholder="验证码"  v-model="value4"></IIInput>
         </div>
       </div>
     </div>
