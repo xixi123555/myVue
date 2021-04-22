@@ -42,14 +42,19 @@ export default {
             default: false
         }
     },
+    // mounted() {
+    //     console.log('this:',this);
+    // },
     setup(props,context) {
-        
+        //data
         const label = ref('')
         const isFocus = ref(false) ;
         const inputDOM = ref(null);
+        console.log('_ctx',context);
         //mounted
         onMounted(() => {
             label.value = context.attrs.placeholder + ":";
+            console.log('_ctx2',context);
         });
 
         //computed

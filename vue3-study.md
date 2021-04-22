@@ -268,14 +268,13 @@
         //mutation 中所有的数据都是同步数据
         //...
         methods: {
-            setUsername(){...},
             ...mapMutation({
                 setUsername: 'setUsername'//就是将setUsername转变成this.$store.commit('setUsername')
             }),
             //用例
             someEvent() {
                 this.$http.getSomeInfo({}).then(res =>{
-                    this.setUsername(res.body.data)
+                    this.setUsername(res.body.data)//等价于this.$store.commit('setUsername',res.body.data)
                 }).catch{
                     new error()
                 }

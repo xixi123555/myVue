@@ -25,4 +25,28 @@ function handle (str,alf){
 let setArr = Array.from(new Set(aString.split('')))
 let longst = setArr.map(el => handle(aString,el)).sort().pop()
 
-console.log(1111,longst,setArr,aString.split(''),handle(aString,'a'));
+console.log(1111,longst);
+
+var a= a;
+console.log('a:',a);
+// let c = c;
+console.log('varaa:',aa);
+
+function aa() {let aa =0;console.log('myaa',aa);};
+console.log('varaa:',aa);
+
+(() => {
+    if(true) {
+        console.log('varaa:',aa);
+        if(false) {
+            function aa() {let aa='mm';console.log('aa',aa);}
+        }
+    }
+    // aa();
+    console.log('varaa:',aa);
+})()
+
+
+
+
+
